@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Online Store Order</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <span class="logo-icon">🛍️</span>
+                    <span class="brand">My Online Store</span>
+                </div>
+
+                <!-- Hamburger toggle -->
+                <div class="menu-toggle" id="menuToggle">☰</div>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#orderForm">Order</a></li>
+                    <li><a href="#summaryCard">Summary</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+
+        <main>
+            <section id="orderForm" class="card">
+                <h2>Customer Details</h2>
+                <form id="customerDetails" novalidate>
+                    <!-- Customer Info -->
+                    <div class="form-group">
+                        <label for="customerName">Full Name:</label>
+                        <input type="text" id="customerName" name="customerName" required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerEmail">Email:</label>
+                        <input type="email" id="customerEmail" name="customerEmail" required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerPhone">Phone:</label>
+                        <input type="tel" id="customerPhone" name="customerPhone" required
+                            placeholder="e.g. 4165551234" />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <!-- Product Info -->
+                    <h2>Product Details</h2>
+                    <div class="form-group">
+                        <label for="itemName">Item Name:</label>
+                        <input type="text" id="itemName" name="itemName" required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" min="1" required />
+                            <span class="error-message"></span>
+                        </div>
+
+                        <div class="form-group half">
+                            <label for="price">Price ($):</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0.01" required />
+                            <span class="error-message"></span>
+                        </div>
+                    </div>
+
+                    <!-- Preferences -->
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="rememberMe" />
+                        <label for="rememberMe">Remember Me (save customer)</label>
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="saveOrder" />
+                        <label for="saveOrder">Save My Order (via cookie)</label>
+                        <span class="error-message"></span>
+                    </div>
+
+
+                    <button type="submit">Submit Order</button>
+                    <button type="button" id="clearBtn" class="secondary">Clear All</button>
+                </form>
+            </section>
+
+            <!-- Order Summary Card -->
+            <section id="summaryCard" class="card hidden">
+                <h2>📦 Order Summary</h2>
+                <p id="summaryCustomer"></p>
+                <ul id="orderItems"></ul>
+                <p><strong>Subtotal:</strong> $<span id="orderSubtotal">0.00</span></p>
+                <p><strong>Tax (13%):</strong> $<span id="orderTax">0.00</span></p>
+                <p class="total"><strong>Total:</strong> $<span id="orderTotal">0.00</span></p>
+            </section>
+
+            <small>&copy; Gaurav Khatri / 9044617</small>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
