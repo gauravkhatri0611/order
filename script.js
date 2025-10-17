@@ -429,20 +429,57 @@ function clearAll() {
   document.querySelector("#quantity").value = "";
   document.querySelector("#price").value = "";
   document.querySelector("#saveOrder").checked = false;
+  document.querySelector("#rememberMe").checked = false;
 
   // Clear displayed errors and summary
   clearErrors();
-  document.querySelector("#finalSummary").innerHTML = "";
-  document.querySelector("#orderItemsList").innerHTML = "";
+  document.querySelector("#summaryCustomer").textContent = "";
+  document.querySelector("#orderItems").innerHTML = "";
+  document.querySelector("#orderSubtotal").textContent = "0.00";
+  document.querySelector("#orderTax").textContent = "0.00";
+  document.querySelector("#orderTotal").textContent = "0.00";
+  document.querySelector("#summaryCard").classList.add("hidden");
 
-  // Reset order items array
-  orderItems = [];
+  // Empty the existing orderItems array safely (since it's const)
+  orderItems.length = 0;
 
-  // ❌ Remove cookies (set expired)
-  setCookie("saveOrder", "", -1);
-  setCookie("orderItems", "", -1);
+  // Remove cookies (set expired)
+  deleteCookie("saveOrder");
+  deleteCookie("orderItems");
 
-  console.log("All data, including cookies, has been cleared.");
+  // Remove localStorage data (Remember Me + saved fields)
+  localStorage.removeItem("rememberMe");
+  localStorage.removeItem("customerName");
+  localStorage.removeItem("customerEmail");
+  localStorage.removeItem("customerPhone");
+
+  // Confirm to user
+  alert("All data, cookies, and saved preferences have been cleared!");
+  console.log(
+    "All data (form, cookies, and localStorage) cleared successfully."
+  );
+}
+
+/* ----------------- Cookie Helpers (Updated) ----------------- */
+function setCookie(name, value, days) {
+  let expires = "";
+  if (days) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + d.toUTCString();
+  }
+  document.cookie =
+    name + "=" + encodeURIComponent(value) + expires + "; path=/";
+}
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+
+/* New Helper: Delete Cookie Properly */
+function deleteCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
 /* ----------------- Cookie Helpers ----------------- */
